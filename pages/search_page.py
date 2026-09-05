@@ -20,9 +20,9 @@ class SearchPage(BasePage):
         search_input = self.wait.until(EC.visibility_of_element_located(self.locator.SEARCH_INPUT))
         search_input.clear()
         search_input.send_keys(input_text)
-
-        search_button = self.wait.until(EC.element_to_be_clickable(self.locator.SEARCH_BUTTON))
-        search_button.click()
+        
+        # 3. Hit ENTER directly on the input field (This fixes the timeout!)
+        search_input.send_keys(Keys.RETURN)
 
         self.wait.until(EC.presence_of_all_elements_located(self.locator.RESULTS))
         self.driver.save_screenshot("results/results.png")
